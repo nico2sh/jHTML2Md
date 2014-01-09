@@ -38,13 +38,19 @@ public class HTML2Md {
 	private static String parseDocument(Document dirtyDoc) {
 		indentation = -1;
 
+		String title = dirtyDoc.title();
+
 		Whitelist whitelist = Whitelist.relaxed();
 		Cleaner cleaner = new Cleaner(whitelist);
 
 		Document doc = cleaner.clean(dirtyDoc);
 		doc.outputSettings().escapeMode(EscapeMode.xhtml);
 
-		return getTextContent(doc);
+		if (!title.trim().equals("")) {
+			return "# " + title + "\n\n" + getTextContent(doc);
+		} else {
+			return getTextContent(doc);
+		}
 	}
 
 	private static String getTextContent(Element element) {
@@ -81,12 +87,12 @@ public class HTML2Md {
 		StringBuilder result = new StringBuilder();
 		for (int i = 0; i < lines.size(); i++) {
 			String line = lines.get(i).toString().trim();
-			if(line.equals("")){
+			if (line.equals("")) {
 				blanklines++;
 			} else {
 				blanklines = 0;
 			}
-			if(blanklines < 2){
+			if (blanklines < 2) {
 				result.append(line);
 				if (i < lines.size() - 1) {
 					result.append("\n");
@@ -239,10 +245,11 @@ public class HTML2Md {
 
 	private static void img(Element element, ArrayList<MDLine> lines) {
 		MDLine line = getLastLine(lines);
-		/*if (!line.isList() && !line.getContent().equals("")) {
-			lines.add(new MDLine(MDLineType.None, 0, ""));
-			line = lines.get(lines.size() - 1);
-		}*/
+		/*
+		 * if (!line.isList() && !line.getContent().equals("")) { lines.add(new
+		 * MDLine(MDLineType.None, 0, "")); line = lines.get(lines.size() - 1);
+		 * }
+		 */
 
 		line.append("![");
 		String alt = element.attr("alt");

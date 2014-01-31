@@ -72,7 +72,7 @@ public class HTML2Md {
 				/*
 				 * if(isInNewLine(elementProcessed) &&
 				 * textNode.text().trim().equals("")){
-				 * 
+				 *
 				 * } else { elementProcessed.append(textNode.text()); }
 				 */
 			} else if (child instanceof Element) {
@@ -195,10 +195,10 @@ public class HTML2Md {
 			lines.add(new MDLine(MDLineType.Head1, 0, getTextContent(element)));
 			break;
 		case 2:
-			lines.add(new MDLine(MDLineType.Head3, 0, getTextContent(element)));
+			lines.add(new MDLine(MDLineType.Head2, 0, getTextContent(element)));
 			break;
 		default:
-			lines.add(new MDLine(MDLineType.Head2, 0, getTextContent(element)));
+			lines.add(new MDLine(MDLineType.Head3, 0, getTextContent(element)));
 			break;
 		}
 

@@ -29,5 +29,5 @@ Roadmap
 -------
 
 * Add options for different markdown styles
-* Some refactoring, currently the code is a quite ugly
+* Some refactoring, currently the code is quite ugly
 

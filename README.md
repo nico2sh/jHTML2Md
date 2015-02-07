@@ -31,7 +31,7 @@ RoadMap
 * Add options for different markdown styles
     * Jekyll & Hexo markdown styles has already been added, to use them, simply invoke
     ```java
-    HTML2MD.htmlToJekyllMd(htmlPath, mdPath, charset);
-    HTML2MD.htmlToHexoMd(htmlPath, mdPath, charset);
+    HTML2Md.htmlToJekyllMd(htmlPath, mdPath, charset);
+    HTML2Md.htmlToHexoMd(htmlPath, mdPath, charset);
     ```
 * Some refactoring, currently the code is quite ugly

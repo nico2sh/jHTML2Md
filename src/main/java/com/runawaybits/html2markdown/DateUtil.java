@@ -86,8 +86,8 @@ public class DateUtil {
      */
     public static String dateToStringWithPattern(Date date, String pattern) {
         try {
-            SimpleDateFormat simpledateformat = new SimpleDateFormat(pattern);
-            return simpledateformat.format(date);
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+            return simpleDateFormat.format(date);
         } catch (Exception e) {
             return "";
         }
@@ -102,10 +102,10 @@ public class DateUtil {
     public static String[] SplitDate(Date date) {
         String s = dateToShortString(date);
         String[] temp = new String[3];
-        StringTokenizer st = new StringTokenizer(s, "-");
+        StringTokenizer stringTokenizer = new StringTokenizer(s, "-");
         int i = 0;
-        while (st.hasMoreTokens()) {
-            temp[i] = st.nextToken();
+        while (stringTokenizer.hasMoreTokens()) {
+            temp[i] = stringTokenizer.nextToken();
             i++;
         }
         return temp;
@@ -119,8 +119,8 @@ public class DateUtil {
      */
     public static String dateToBOMCStringDate(Date date) {
         try {
-            SimpleDateFormat simpledateformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            String string = simpledateformat.format(date);
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String string = simpleDateFormat.format(date);
             string = StringToBOMCStringDate(string);
             return string;
         } catch (Exception e) {
@@ -146,8 +146,8 @@ public class DateUtil {
      */
     public static Date stringToDate(String string) {
         try {
-            SimpleDateFormat simpledateformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            return simpledateformat.parse(string);
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            return simpleDateFormat.parse(string);
         } catch (Exception e) {
             return null;
         }
@@ -161,8 +161,8 @@ public class DateUtil {
      */
     public static Date timeStringToDate(String string) {
         try {
-            SimpleDateFormat simpledateformat = new SimpleDateFormat("HH:mm:ss");
-            return simpledateformat.parse(string);
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
+            return simpleDateFormat.parse(string);
         } catch (Exception e) {
             return null;
         }
@@ -176,9 +176,9 @@ public class DateUtil {
      */
     public static Date stringToShortDate(String string) {
         try {
-            SimpleDateFormat simpledateformat = new SimpleDateFormat("yyyy-MM-dd");
-            ParsePosition parseposition = new ParsePosition(0);
-            return simpledateformat.parse(string, parseposition);
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            ParsePosition parsePosition = new ParsePosition(0);
+            return simpleDateFormat.parse(string, parsePosition);
         } catch (Exception e) {
             return null;
         }
@@ -192,9 +192,9 @@ public class DateUtil {
      */
     public static Date stringToShortNoDate(String string) {
         try {
-            SimpleDateFormat simpledateformat = new SimpleDateFormat("yyyyMMdd");
-            ParsePosition parseposition = new ParsePosition(0);
-            return simpledateformat.parse(string, parseposition);
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+            ParsePosition parsePosition = new ParsePosition(0);
+            return simpleDateFormat.parse(string, parsePosition);
         } catch (Exception e) {
             return null;
         }
@@ -226,9 +226,9 @@ public class DateUtil {
      */
     public static long getTimestamp(String string) {
         try {
-            SimpleDateFormat simpledateformat = new SimpleDateFormat("yyyy-MM-dd");
-            ParsePosition parseposition = new ParsePosition(0);
-            Date date = simpledateformat.parse(string, parseposition);
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            ParsePosition parsePosition = new ParsePosition(0);
+            Date date = simpleDateFormat.parse(string, parsePosition);
             return date.getTime();
         } catch (Exception e) {
             return -1;
@@ -243,9 +243,9 @@ public class DateUtil {
      */
     public static long getStringToTimestamp(String string) {
         try {
-            SimpleDateFormat simpledateformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            ParsePosition parseposition = new ParsePosition(0);
-            Date date = simpledateformat.parse(string, parseposition);
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            ParsePosition parsePosition = new ParsePosition(0);
+            Date date = simpleDateFormat.parse(string, parsePosition);
             return date.getTime();
         } catch (Exception e) {
             return -1;
@@ -280,17 +280,17 @@ public class DateUtil {
      * @return String value
      */
     public static String LongToDateString(long timestamp) {
-        DateFormat mediumDateFormat;
-        Date sDate;
+        DateFormat dateFormat;
+        Date date;
         try {
-            mediumDateFormat = DateFormat.getDateTimeInstance();
-            String date = String.valueOf(timestamp);
-            sDate = new Date(Long.parseLong(date));
+            dateFormat = DateFormat.getDateTimeInstance();
+            String dateString = String.valueOf(timestamp);
+            date = new Date(Long.parseLong(dateString));
         } catch (Exception ex) {
             ex.printStackTrace();
             return null;
         }
-        return mediumDateFormat.format(sDate);
+        return dateFormat.format(date);
     }
 
     /**
@@ -298,118 +298,118 @@ public class DateUtil {
      * Date first = DateUtil.getMonday(today,Calendar.SUNDAY);
      * Date last = DateUtil.getMonday(today,Calendar.SATURDAY);
      *
-     * @param date    String value of date
-     * @param weekDay index of weekday to get, first Calendar.SUNDAY, last Calendar.SATURDAY
+     * @param dateString String value of date
+     * @param weekDay    int index of weekday to get, first Calendar.SUNDAY, last Calendar.SATURDAY
      * @return Date value
      */
-    public static Date getWeekDay(String date, int weekDay) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Date d = null;
+    public static Date getWeekDay(String dateString, int weekDay) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = null;
         try {
-            d = format.parse(date);
+            date = simpleDateFormat.parse(dateString);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Calendar cal = Calendar.getInstance();
-        if (d != null) {
-            cal.setTime(d);
+        Calendar calendar = Calendar.getInstance();
+        if (date != null) {
+            calendar.setTime(date);
         }
         // DAY_OF_WEEK
         // Field number for get and set indicating the day of the week. This field takes values
         // SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, and SATURDAY
-        cal.set(Calendar.DAY_OF_WEEK, weekDay);
-        cal.add(Calendar.DATE, 1);
-        return cal.getTime();
+        calendar.set(Calendar.DAY_OF_WEEK, weekDay);
+        calendar.add(Calendar.DATE, 1);
+        return calendar.getTime();
     }
 
     /**
      * return the first day of the date's month of specified string value in format: yyyy-MM
      *
-     * @param date String value of date
+     * @param dateString String value of date
      * @return Date value
      */
-    public static Date getMonthFirstDay(String date) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM");
-        Date d = null;
+    public static Date getMonthFirstDay(String dateString) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM");
+        Date date = null;
         try {
-            d = format.parse(date);
+            date = simpleDateFormat.parse(dateString);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Calendar cal = Calendar.getInstance();
-        if (d != null) {
-            cal.setTime(d);
+        Calendar calendar = Calendar.getInstance();
+        if (date != null) {
+            calendar.setTime(date);
         }
-        cal.add(Calendar.DAY_OF_MONTH, 0);
-        return cal.getTime();
+        calendar.add(Calendar.DAY_OF_MONTH, 0);
+        return calendar.getTime();
     }
 
     /**
      * return the last day of the date's month of specified string value in format: yyyy-MM
      *
-     * @param date String value of date
+     * @param dateString String value of date
      * @return Date value
      */
-    public static Date getMonthLastDay(String date) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM");
-        Date d = null;
+    public static Date getMonthLastDay(String dateString) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM");
+        Date date = null;
         try {
-            d = format.parse(date);
+            date = simpleDateFormat.parse(dateString);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Calendar cal = Calendar.getInstance();
-        if (d != null) {
-            cal.setTime(d);
+        Calendar calendar = Calendar.getInstance();
+        if (date != null) {
+            calendar.setTime(date);
         }
-        cal.add(Calendar.MONTH, 1);
-        cal.add(Calendar.DATE, -1);
-        return cal.getTime();
+        calendar.add(Calendar.MONTH, 1);
+        calendar.add(Calendar.DATE, -1);
+        return calendar.getTime();
     }
 
     /**
      * return the first day of the date's year of specified string value in format: yyyy
      *
-     * @param date String value of date
+     * @param dateString String value of date
      * @return Date value
      */
-    public static Date getYearFirstDay(String date) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy");
-        Date d = null;
+    public static Date getYearFirstDay(String dateString) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy");
+        Date date = null;
         try {
-            d = format.parse(date);
+            date = simpleDateFormat.parse(dateString);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Calendar cal = Calendar.getInstance();
-        if (d != null) {
-            cal.setTime(d);
+        Calendar calendar = Calendar.getInstance();
+        if (date != null) {
+            calendar.setTime(date);
         }
-        cal.add(Calendar.DAY_OF_YEAR, 0);
-        return cal.getTime();
+        calendar.add(Calendar.DAY_OF_YEAR, 0);
+        return calendar.getTime();
     }
 
     /**
      * return the last day of the date's year of specified string value in format: yyyy
      *
-     * @param date String value
+     * @param dateString String value
      * @return Date value
      */
-    public static Date getYearLastDay(String date) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy");
-        Date d = null;
+    public static Date getYearLastDay(String dateString) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy");
+        Date date = null;
         try {
-            d = format.parse(date);
+            date = simpleDateFormat.parse(dateString);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Calendar cal = Calendar.getInstance();
-        if (d != null) {
-            cal.setTime(d);
+        Calendar calendar = Calendar.getInstance();
+        if (date != null) {
+            calendar.setTime(date);
         }
-        cal.add(Calendar.YEAR, 1);
-        cal.add(Calendar.DATE, -1);
-        return cal.getTime();
+        calendar.add(Calendar.YEAR, 1);
+        calendar.add(Calendar.DATE, -1);
+        return calendar.getTime();
     }
 
     /**
@@ -421,9 +421,9 @@ public class DateUtil {
      * @return Date value
      */
     public static Date getDate(Date date, int field, int amount) {
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(date);
-        cal.add(field, amount);
-        return cal.getTime();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(field, amount);
+        return calendar.getTime();
     }
 }

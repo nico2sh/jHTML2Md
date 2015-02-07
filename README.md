@@ -25,7 +25,7 @@ The 30000 is the timeout for requesting the page in milliseconds.
 
 Enjoy!
 
-Roadmap
+RoadMap
 -------
 
 * Add options for different markdown styles

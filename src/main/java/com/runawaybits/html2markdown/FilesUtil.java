@@ -728,7 +728,7 @@ public class FilesUtil {
     }
 
     /**
-     * check if directory exists, if not exist, create it, return false if create failed
+     * check if directory exists
      *
      * @param path folder path
      * @return boolean

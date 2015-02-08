@@ -515,11 +515,11 @@ public class FilesUtil {
         }
         String[] tempList = file.list();
         File tempFile;
-        for (int i = 0; i < tempList.length; i++) {
+        for (String fileName : tempList) {
             if (path.endsWith(File.separator)) {
-                tempFile = new File(path + tempList[i]);
+                tempFile = new File(path + fileName);
             } else {
-                tempFile = new File(path + File.separator + tempList[i]);
+                tempFile = new File(path + File.separator + fileName);
             }
             if (tempFile.isFile()) {
                 if (suffix == null || "".equals(suffix))

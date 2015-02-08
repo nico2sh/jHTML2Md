@@ -50,27 +50,27 @@ public class HTML2Md {
 
     public static void htmlToJekyllMd(String htmlPath, String mdPath, String charset) {
         try {
-            List<File> fileList = FilesUtil.GetAllFile(htmlPath, "html");
-            for (File f : fileList) {
-                String mdName = f.getAbsolutePath().replace(htmlPath, mdPath).replace("html", "md");
+            List<File> fileList = FilesUtil.getAllFiles(htmlPath, "html");
+            for (File file : fileList) {
+                String mdName = file.getAbsolutePath().replace(htmlPath, mdPath).replace("html", "md");
                 String hmPath = mdName.substring(0, mdName.lastIndexOf("/")) + "/";
                 String separator = System.getProperty("line.separator");
-                String tou = "---" + separator +
+                String head = "---" + separator +
                         "layout: post" + separator +
-                        "title: \"" + f.getName() + "\"" + separator +
-                        "description: \"" + f.getName() + "\"" + separator +
+                        "title: \"" + file.getName() + "\"" + separator +
+                        "description: \"" + file.getName() + "\"" + separator +
                         "category: pages\"" + separator +
                         "tags: [blog]\"" + separator +
                         "--- " + separator +
                         "{% include JB/setup %}" + separator
                         + separator;
                 FilesUtil.isExist(hmPath);
-                String parsedText = convertFile(f, charset);
-                Calendar c = Calendar.getInstance();
-                String dateName = DateUtil.dateToShortString(c.getTime());
-                String newName = dateName + "-" + hmPath.replace(mdPath, "").replace("/", "-") + "-" + f.getName();
+                String parsedText = convertFile(file, charset);
+                Calendar calendar = Calendar.getInstance();
+                String dateName = DateUtil.dateToShortString(calendar.getTime());
+                String newName = dateName + "-" + hmPath.replace(mdPath, "").replace("/", "-") + "-" + file.getName();
                 String mmName = (hmPath + newName.replace("html", "md")).replaceAll("\\s*", "");
-                FilesUtil.newFile(mmName, tou + parsedText, charset);
+                FilesUtil.newFile(mmName, head + parsedText, charset);
             }
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -81,28 +81,28 @@ public class HTML2Md {
 
     public static void htmlToHexoMd(String htmlPath, String mdPath, String charset) {
         try {
-            List<File> fileList = FilesUtil.GetAllFile(htmlPath, "html");
-            for (File f : fileList) {
-                String mdName = f.getAbsolutePath().replace(htmlPath, mdPath).replace("html", "md");
+            List<File> fileList = FilesUtil.getAllFiles(htmlPath, "html");
+            for (File file : fileList) {
+                String mdName = file.getAbsolutePath().replace(htmlPath, mdPath).replace("html", "md");
                 String hmPath = mdName.substring(0, mdName.lastIndexOf("/")) + "/";
                 String separator = System.getProperty("line.separator");
-                String[] s = hmPath.replace(mdPath, "").split("/");
-                Calendar c = Calendar.getInstance();
-                String dateName = DateUtil.dateToShortString(c.getTime());
-                String dateString = DateUtil.dateToLongString(c.getTime());
+                String[] strings = hmPath.replace(mdPath, "").split("/");
+                Calendar calendar = Calendar.getInstance();
+                String dateName = DateUtil.dateToShortString(calendar.getTime());
+                String dateString = DateUtil.dateToLongString(calendar.getTime());
                 StringBuilder blog = new StringBuilder();
                 StringBuilder categories = new StringBuilder();
-                Map<String, String> m = new TreeMap<String, String>();
-                for (String value : s) {
-                    m.put(value, value);
+                Map<String, String> stringMap = new TreeMap<String, String>();
+                for (String value : strings) {
+                    stringMap.put(value, value);
                 }
-                for (String tag : m.keySet()) {
+                for (String tag : stringMap.keySet()) {
                     blog.append(" - ").append(tag).append(separator);
                 }
-                categories.append(s[0]);
-                String tou = "---" + separator +
+                categories.append(strings[0]);
+                String head = "---" + separator +
                         "layout: post" + separator +
-                        "title: \"" + f.getName().replace(".html", "").split("-")[0] + "\"" + separator +
+                        "title: \"" + file.getName().replace(".html", "").split("-")[0] + "\"" + separator +
                         "date: " + dateString + separator +
                         "categories: " + categories + separator +
                         "tags: " + separator +
@@ -110,10 +110,10 @@ public class HTML2Md {
                         "--- " + separator +
                         separator;
                 FilesUtil.isExist(hmPath);
-                String parsedText = HTML2Md.convertFile(f, "utf-8");
-                String newName = dateName + "-" + hmPath.replace(mdPath, "").replace("/", "-") + "-" + f.getName();
+                String parsedText = HTML2Md.convertFile(file, "utf-8");
+                String newName = dateName + "-" + hmPath.replace(mdPath, "").replace("/", "-") + "-" + file.getName();
                 String mmName = (hmPath + newName.replace("html", "md")).replaceAll("\\s*", "");
-                FilesUtil.newFile(mmName, tou + parsedText, charset);
+                FilesUtil.newFile(mmName, head + parsedText, charset);
             }
         } catch (MalformedURLException e) {
             e.printStackTrace();

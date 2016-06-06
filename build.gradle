@@ -6,9 +6,37 @@ apply plugin: 'groovy'
 apply plugin: 'pmd'
 apply plugin: 'checkstyle'
 apply plugin: 'findbugs'
+apply plugin: 'jacoco'
 apply from: 'dependencies.gradle'
 
-sourceCompatibility = 1.5
+pmd {
+    ruleSetFiles = files("config/pmd/pmd-ruleset.xml")
+}
+
+checkstyle {
+    toolVersion = versions.checkstyle
+}
+
+findbugs {
+    includeFilter = file("$rootProject.projectDir/config/findbugs/findbugs-config.xml")
+    excludeFilter = file("$rootProject.projectDir/config/findbugs/findbugs-excludes.xml")
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        html.enabled false
+    }
+}
+
+test {
+    jacoco {
+        append = true
+    }
+}
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
 
 repositories {
     mavenCentral()

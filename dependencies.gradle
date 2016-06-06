@@ -1,0 +1,21 @@
+ext.versions = [
+        jsoup            : '1.9.2',
+        checkstyle       : '6.16',
+        groovy           : '2.4.6',
+        http_builder     : '0.7.1',
+        junit            : '4.12',
+        mockito          : '1.10.19',
+        slf4j            : '1.7.18',
+        spock            : '1.0-groovy-2.4',
+]
+
+ext.libs = [
+        jsoup                  : "org.jsoup:jsoup:${versions.jsoup}",
+        checkstyle             : "com.puppycrawl.tools:checkstyle:${versions.checkstyle}",
+        groovy                 : "org.codehaus.groovy:groovy-all:${versions.groovy}",
+        http_builder           : "org.codehaus.groovy.modules.http-builder:http-builder:${versions.http_builder}",
+        junit                  : "junit:junit:${versions.junit}",
+        mockito                : "org.mockito:mockito-core:${versions.mockito}",
+        slf4j_api              : "org.slf4j:slf4j-api:${versions.slf4j}",
+        spock                  : "org.spockframework:spock-core:${versions.spock}",
+]

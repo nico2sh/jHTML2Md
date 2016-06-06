@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# Checks code styles are OK, findbugs, PMD...
+./gradlew checkstyleMain checkstyleTest findbugsMain findbugsTest pmdMain pmdTest

@@ -1,6 +1,7 @@
 package com.pnikosis.html2markdown;
 
-import com.pnikosis.html2markdown.MDLine.MDLineType;
+import com.pnikosis.html2markdown.md.MDLine;
+import com.pnikosis.html2markdown.md.MDLine.MDLineType;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -136,19 +137,20 @@ public class HTML2Md {
     Document doc = cleaner.clean(dirtyDoc);
     doc.outputSettings().escapeMode(EscapeMode.xhtml);
 
-    if (!title.trim().equals("")) {
-      return "# " + title + "\n\n" + getTextContent(doc);
+    String trimmedTitle = title.trim();
+    if (!"".equals(trimmedTitle)) {
+      return "# " + trimmedTitle + "\n\n" + getTextContent(doc);
     } else {
       return getTextContent(doc);
     }
   }
 
   private static String getTextContent(Element element) {
-    ArrayList<MDLine> lines = new ArrayList<MDLine>();
+    ArrayList<MDLine> lines = new ArrayList<>();
 
     List<Node> children = element.childNodes();
     for (Node child : children) {
-      if (child instanceof TextNode) {
+      if (TextNode.class.isInstance(child)) {
         TextNode textNode = (TextNode) child;
         MDLine line = getLastLine(lines);
         if (line.getContent().equals("")) {

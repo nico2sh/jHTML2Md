@@ -1,17 +1,17 @@
-package com.pnikosis.html2markdown;
+package com.pnikosis.html2markdown.md;
 
 public class MDLine {
   private int level = 0;
   private MDLineType type;
-  private StringBuilder content;
+  private String content;
 
   public MDLine(MDLineType type, int level, String content) {
     this.type = type;
     this.level = level;
-    this.content = new StringBuilder(content);
+    this.content = content.trim();
   }
 
-  public MDLine create(String line) {
+  public static MDLine create(String line) {
     int spaces = 0;
     while ((spaces < line.length()) && (line.charAt(spaces) == ' ')) {
       spaces++;
@@ -60,7 +60,7 @@ public class MDLine {
     return new MDLine(MDLineType.None, newLevel, content);
   }
 
-  public MDLineType getListTypeName() {
+  public MDLineType getLineType() {
     return type;
   }
 
@@ -98,19 +98,19 @@ public class MDLine {
   }
 
   public String getContent() {
-    return content.toString();
+    return content;
   }
 
   public void append(String appendContent) {
     if (content.length() == 0) {
-      int i = 0;
-      while (i < appendContent.length() && Character.isWhitespace(appendContent.charAt(i))) {
-        i++;
-      }
-      content.append(appendContent.substring(i));
+      content = appendContent.trim();
     } else {
-      content.append(appendContent);
+      content = content + appendContent;
     }
+  }
+
+  public boolean isEmpty() {
+    return level == 0 && content.isEmpty() && type.equals(MDLineType.None);
   }
 
   @Override

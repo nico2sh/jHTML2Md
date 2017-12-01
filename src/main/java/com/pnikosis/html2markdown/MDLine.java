@@ -92,7 +92,11 @@ public class MDLine {
       newLine.append("----");
     }
 
-    newLine.append(getContent());
+    String contentStr = getContent();
+    if(type.equals(MDLineType.Unordered)){
+      contentStr = contentStr.replaceAll("^\n","");
+    }
+    newLine.append(contentStr);
 
     return newLine.toString();
   }
